@@ -25,15 +25,15 @@ public static void Solution(int n)
             {
                 if( right <= top)
                 {
-                    System.out.print(right + " ");
+                    System.out.print(n-right + " ");
                 }
                 else if(left <= top)
                 {
-                    System.out.print(left + " ");
+                    System.out.print(n-left + " ");
                 }
                 else
                 {
-                    System.out.print(top + " ");
+                    System.out.print(n-top + " ");
                 }
             }
             else
@@ -41,15 +41,15 @@ public static void Solution(int n)
                 {
                     if( right <= dwn)
                     {
-                        System.out.print(right + " ");
+                        System.out.print(n-right + " ");
                     }
                     else if(left <= dwn)
                     {
-                        System.out.print(left + " ");
+                        System.out.print(n-left + " ");
                     }
                     else
                     {
-                        System.out.print(dwn + " ");
+                        System.out.print(n-dwn + " ");
                     }
                 }
             }
