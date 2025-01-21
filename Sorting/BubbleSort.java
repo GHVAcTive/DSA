@@ -41,6 +41,7 @@ public class BubbleSort
                 System.out.println("Hii Array is Already Sorted");
                 break;
             }
+            System.out.println("RUNS");
         }
 
         return arr;
