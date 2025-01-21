@@ -25,6 +25,7 @@ public class BubbleSort
     {
         for(int i=arr.length-1; i>=1 ;i--)
         {
+            int DoSwap = 0;
             for(int j=0; j <=i-1; j++)
             {
                 if(arr[j] > arr[j+1])
@@ -32,7 +33,13 @@ public class BubbleSort
                     int temp = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
+                    DoSwap = 1;
                 }
+            }
+            if(DoSwap == 0)
+            {
+                System.out.println("Hii Array is Already Sorted");
+                break;
             }
         }
 
