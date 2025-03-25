@@ -1,26 +1,31 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-public class CombinationSumII {
+class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(candidates);
-        backtrack(result, new ArrayList<>(), candidates, target, 0);
+        Arrays.sort(candidates);  // Sort to handle duplicates easily
+        backtrack(candidates, target, 0, new ArrayList<>(), result);
         return result;
     }
 
-    private void backtrack(List<List<Integer>> result, List<Integer> tempList, int[] candidates, int remain, int start) {
-        if (remain < 0) return; // exceed target
-        if (remain == 0) {
-            result.add(new ArrayList<>(tempList)); // found a combination
+    private void backtrack(int[] candidates, int target, int index, List<Integer> current, List<List<Integer>> result) {
+        if (target == 0) {
+            result.add(new ArrayList<>(current));  // Valid combination found
             return;
         }
-        for (int i = start; i < candidates.length; i++) {
-            if (i > start && candidates[i] == candidates[i - 1]) continue; // skip duplicates
-            tempList.add(candidates[i]);
-            backtrack(result, tempList, candidates, remain - candidates[i], i + 1);
-            tempList.remove(tempList.size() - 1); // backtrack
+
+        for (int i = index; i < candidates.length; i++) {
+            if (i > index && candidates[i] == candidates[i - 1]) {
+                continue; // Skip duplicates
+            }
+
+            if (candidates[i] > target) {
+                break; // No point in continuing if the number is greater than target
+            }
+
+            current.add(candidates[i]);
+            backtrack(candidates, target - candidates[i], i + 1, current, result);
+            current.remove(current.size() - 1); // Backtrack
         }
     }
 }
