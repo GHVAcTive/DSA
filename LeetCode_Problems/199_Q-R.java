@@ -1,20 +1,10 @@
 import java.util.*;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int val) {
-        this.val = val;
-    }
-}
-
-public class RightSideView {
+public class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        
-        // Check if the root is null
+
+        // Return empty list if root is null
         if (root == null) {
             return result;
         }
@@ -23,15 +13,15 @@ public class RightSideView {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
-        // Level order traversal
+        // Level order traversal using BFS
         while (!queue.isEmpty()) {
-            int levelSize = queue.size();
+            int levelSize = queue.size(); // Number of nodes at current level
 
-            // Iterate through the nodes in the current level
+            // Iterate through the nodes at this level
             for (int i = 0; i < levelSize; i++) {
                 TreeNode currentNode = queue.poll();
 
-                // Add the last node of each level to the result list
+                // If it's the last node of this level, add it to the result
                 if (i == levelSize - 1) {
                     result.add(currentNode.val);
                 }
