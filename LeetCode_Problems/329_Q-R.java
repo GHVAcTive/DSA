@@ -1,50 +1,40 @@
-import java.util.*;
-
 public class Solution {
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> graph = new ArrayList<>();
-        int[] indegree = new int[numCourses];
-        List<Integer> result = new ArrayList<>();
+    private int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    private int[][] memo;
+    private int m, n;
 
-        // Initialize graph
-        for (int i = 0; i < numCourses; i++) {
-            graph.add(new ArrayList<>());
+    public int longestIncreasingPath(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            return 0;
         }
 
-        // Build graph and calculate indegree
-        for (int[] pre : prerequisites) {
-            int course = pre[0];
-            int prereq = pre[1];
-            graph.get(prereq).add(course);
-            indegree[course]++;
+        m = matrix.length;
+        n = matrix[0].length;
+        memo = new int[m][n];
+
+        int maxPath = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                maxPath = Math.max(maxPath, dfs(matrix, i, j));
+            }
+        }
+        return maxPath;
+    }
+
+    private int dfs(int[][] matrix, int i, int j) {
+        if (memo[i][j] != 0) {
+            return memo[i][j];
         }
 
-        // Add courses with 0 indegree to the queue
-        Queue<Integer> queue = new LinkedList<>();
-        for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0) {
-                queue.offer(i);
+        int maxLen = 1;
+        for (int[] dir : directions) {
+            int x = i + dir[0], y = j + dir[1];
+            if (x >= 0 && x < m && y >= 0 && y < n && matrix[x][y] > matrix[i][j]) {
+                maxLen = Math.max(maxLen, 1 + dfs(matrix, x, y));
             }
         }
 
-        // Process courses
-        while (!queue.isEmpty()) {
-            int course = queue.poll();
-            result.add(course);
-            
-            for (int next : graph.get(course)) {
-                indegree[next]--;
-                if (indegree[next] == 0) {
-                    queue.offer(next);
-                }
-            }
-        }
-
-        // Check if all courses are processed
-        if (result.size() == numCourses) {
-            return result.stream().mapToInt(i -> i).toArray();
-        } else {
-            return new int[0];
-        }
+        memo[i][j] = maxLen;
+        return maxLen;
     }
 }
