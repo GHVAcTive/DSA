@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenerateParentheses {
+public class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
         backtrack(result, "", 0, 0, n);
@@ -24,13 +24,5 @@ public class GenerateParentheses {
         if (close < open) {
             backtrack(result, current + ")", open, close + 1, max);
         }
-    }
-
-    // Main method to test the function
-    public static void main(String[] args) {
-        GenerateParentheses gp = new GenerateParentheses();
-        int n = 3;
-        List<String> result = gp.generateParenthesis(n);
-        System.out.println(result);
     }
 }
