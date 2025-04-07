@@ -13,7 +13,7 @@ class Solution {
             // Update longest palindrome
             if (oddPalindrome.length() > longest.length()) {
                 longest = oddPalindrome;
-            }
+            } // COndition If
             if (evenPalindrome.length() > longest.length()) {
                 longest = evenPalindrome;
             }
